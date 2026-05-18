@@ -26,7 +26,7 @@
             text-align: center;
         }
 
-        /* Efek Bunga Sakura Gugur Sederhana */
+        /* Efek Bunga Sakura Gugur */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -105,7 +105,7 @@
 
     <div class="container">
         <h1>Hi Sayang... 🥺</h1>
-        <p>Aku mohon maaf sayanggg sudah bikin sayanggg marah. Minta maaf ka yaaa? tidak tenang ka rasanya sayanggg begitu terus, sweedihhh bangettt. Jangan marah lagi yaa? ❤️</p>
+        <p>Minta maaf sayanggg sudah bikin sayanggg marah. Tidak tenang ka rasanya sayanggg begitu terus, sweedihhh bangettt. Jangan marah lagi yaa? ❤️</p>
         
         <div class="btn-container">
             <button id="btn-mau" onclick="maafDiterima()">Iya, Dimaafin</button>
@@ -113,8 +113,12 @@
         </div>
     </div>
 
-    <audio id="lagu" autoplay loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <audio id="laguSedih" autoplay loop>
+        <source src="https://youtube.com/shorts/eBafcKkEx2E?si=RxaL0mFdroMp0jq5" type="audio/mpeg">
+    </audio>
+
+    <audio id="laguYeay">
+        <source src="https://youtube.com/shorts/QijWFU2j-dI?si=p-gSNc6mXBE2Qk0J" type="audio/mpeg">
     </audio>
 
     <script>
@@ -128,8 +132,16 @@
         }
 
         function maafDiterima() {
+            // Menghentikan musik sedih
+            const sedih = document.getElementById('laguSedih');
+            sedih.pause();
+            
+            // Memutar musik Kucing Yeay
+            const yeay = document.getElementById('laguYeay');
+            yeay.play();
+
+            // Menampilkan pesan pop-up kesenangan
             alert("Yeayyy!! telimakaci cayang 🥰. I love you ❤️");
-            window.location.reload(); 
         }
 
         function createParticle() {

@@ -34,6 +34,19 @@
             pointer-events: none;
         }
 
+        /* Tampilan Halaman Buka Undangan / Cover Awal */
+        .cover-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
         .container {
             position: relative;
             z-index: 2;
@@ -77,6 +90,14 @@
             transition: all 0.3s ease;
         }
 
+        .btn-buka {
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
         #btn-mau {
             background-color: var(--accent-color);
             color: white;
@@ -97,9 +118,21 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
+
+    <div class="cover-overlay" id="coverAwal">
+        <h1>Ada Pesan untuk Sayang ✉️</h1>
+        <p style="margin-bottom: 35px;">Klik tombol di bawah untuk membuka pesan dari aku...</p>
+        <button class="btn-buka" onclick="bukaPesan()">Buka Pesan 🥺</button>
+    </div>
 
     <div class="particles" id="particles"></div>
 
@@ -113,7 +146,7 @@
         </div>
     </div>
 
-    <audio id="laguSedih" autoplay loop>
+    <audio id="laguSedih" loop>
         <source src="Nangis.mp3" type="audio/mpeg">
     </audio>
 
@@ -122,6 +155,21 @@
     </audio>
 
     <script>
+        // Fungsi untuk membuka halaman utama dan memicu lagu sedih berputar
+        function bukaPesan() {
+            const cover = document.getElementById('coverAwal');
+            const sedih = document.getElementById('laguSedih');
+            
+            // Putar lagu sedih
+            sedih.play().catch(error => console.log("Playback diblokir:", error));
+            
+            // Hilangkan halaman cover awal
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+            }, 800);
+        }
+
         function pindahTombol() {
             const btnGa = document.getElementById('btn-ga');
             const x = Math.random() * (window.innerWidth - btnGa.clientWidth - 50);
@@ -132,18 +180,16 @@
         }
 
         function maafDiterima() {
-            // Menghentikan musik sedih
             const sedih = document.getElementById('laguSedih');
-            sedih.pause();
-            
-            // Memutar musik Kucing Yeay
             const yeay = document.getElementById('laguYeay');
-            yeay.play();
-
-            // Menampilkan pesan pop-up kesenangan
+            
+            sedih.pause(); // Matikan lagu nangis
+            yeay.play();   // Nyalakan lagu senang
+            
             alert("Yeayyy!! telimakaci cayang 🥰. I love you ❤️");
         }
 
+        // Efek kelopak bunga sakura gugu
         function createParticle() {
             const particlesContainer = document.getElementById('particles');
             const particle = document.createElement('div');
